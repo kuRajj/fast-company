@@ -39,21 +39,61 @@ const Users = () => {
     setUsers((prevState) => prevState.filter((user) => user !== id));
   };
 
-  return (
-    <table className="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Имя</th>
-          <th scope="col">Качества</th>
-          <th scope="col">Профессия</th>
-          <th scope="col">Встретился, раз</th>
-          <th scope="col">Оценка</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>{renderUsers()}</tbody>
-    </table>
-  );
+  const howManyPeopleHaveFunWithMe = (value, words) => {
+    value = Math.abs(value) % 100;
+    let num = value % 10;
+    if (value > 10 && value < 20) return words[2];
+    if (num > 1 && num < 5) return words[1];
+    if (num === 1) return words[0];
+    return words[2];
+  };
+
+  const renderMessage = () => {
+    if (users.length < 1) {
+      return (
+        <span
+          className="howManyPeopleHaveFunWithMe"
+          style={{ background: "rgb(202, 33, 4)" }}
+        >
+          Ты никому не нужен Т_Т
+        </span>
+      );
+    } else {
+      return (
+        <>
+          <span className="howManyPeopleHaveFunWithMe">
+            {users.length}{" "}
+            {howManyPeopleHaveFunWithMe(users.length, [
+              "человек",
+              "человека",
+              "человек",
+            ])}{" "}
+            тусанет с тобой сегодня
+          </span>
+          {renderTable()}
+        </>
+      );
+    }
+  };
+  const renderTable = () => {
+    return (
+      <table className="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Имя</th>
+            <th scope="col">Качества</th>
+            <th scope="col">Профессия</th>
+            <th scope="col">Встретился, раз</th>
+            <th scope="col">Оценка</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>{renderUsers()}</tbody>
+      </table>
+    );
+  };
+
+  return renderMessage();
 };
 
 export default Users;

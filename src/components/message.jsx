@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import api from "../api";
+import Users from "./users";
 
 export const Message = () => {
-  return <h1>sss</h1>;
+  const [mess, setMesss] = useState(api.users.fetchAll());
+
+  return <h1>{Users.users.length} человек</h1>;
 };

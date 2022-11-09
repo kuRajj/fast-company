@@ -19,3 +19,13 @@ tbody th {
 thead tr {
   border-bottom: 2px solid black;
 }
+
+.howManyPeopleHaveFunWithMe {
+  display: block;
+  width: 450px;
+  background-color: rgb(98, 121, 226);
+  font-size: x-large;
+  font-weight: 700;
+  border-radius: 5px;
+  text-align: center;  
+}
