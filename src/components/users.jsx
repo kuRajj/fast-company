@@ -66,35 +66,37 @@ const Users = () => {
     return words[2];
   };
 
-  const renderMessage = () => {
-    if (users.length < 1) {
-      return (
-        <span
-          className="howManyPeopleHaveFunWithMe"
-          style={{ background: "rgb(202, 33, 4)" }}
-        >
-          Ты никому не нужен Т_Т
-        </span>
-      );
-    } else {
-      return (
-        <>
-          <span className="howManyPeopleHaveFunWithMe">
-            {users.length}{" "}
-            {howManyPeopleHaveFunWithMe(users.length, [
-              "человек",
-              "человека",
-              "человек",
-            ])}{" "}
-            тусанет с тобой сегодня
-          </span>
-          {renderTable()}
-        </>
-      );
-    }
+  const renderBadMessage = (text) => {
+    return (
+      <span
+        className="howManyPeopleHaveFunWithMe"
+        style={{ background: "rgb(202, 33, 4)" }}
+      >
+        {text}
+      </span>
+    );
   };
 
-  return renderMessage();
+  const renderGoodMessage = (text) => {
+    return (
+      <>
+        <span className="howManyPeopleHaveFunWithMe">
+          {users.length}{" "}
+          {howManyPeopleHaveFunWithMe(users.length, [
+            "человек",
+            "человека",
+            "человек",
+          ])}{" "}
+          {text}
+        </span>
+        {renderTable()}
+      </>
+    );
+  };
+
+  return users.length < 1
+    ? renderBadMessage("Ты никому не нужен Т_Т")
+    : renderGoodMessage("тусанет с тобой сегодня");
 };
 
 export default Users;
