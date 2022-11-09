@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+tbody th {
+  font-weight: 600;  
+}
+
+thead tr {
+  border-bottom: 2px solid black;
+}
