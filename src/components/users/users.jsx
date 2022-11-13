@@ -5,8 +5,8 @@ import style from "./style.module.css";
 const Users = () => {
   const [users, setUsers] = useState(api.users.fetchAll());
 
-  const handleDelet = (id) => {
-    setUsers(users.filter((user) => user !== id));
+  const handleDelete = (id) => {
+    setUsers(users.filter((user) => user._id !== id));
   };
 
   const renderPhrase = (number) => {
@@ -60,7 +60,7 @@ const Users = () => {
                 <th>
                   <button
                     className="btn btn-danger btn-sm m-1"
-                    onClick={() => handleDelet(user)}
+                    onClick={() => handleDelete(user._id)}
                   >
                     delete
                   </button>
