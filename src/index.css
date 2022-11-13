@@ -11,21 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-tbody th {
-  font-weight: 600;  
-}
-
-thead tr {
-  border-bottom: 2px solid black;
-}
-
-.howManyPeopleHaveFunWithMe {
-  display: block;
-  width: 450px;
-  background-color: rgb(98, 121, 226);
-  font-size: x-large;
-  font-weight: 700;
-  border-radius: 5px;
-  text-align: center;  
-}
