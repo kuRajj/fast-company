@@ -1,33 +1,11 @@
-import React, { useState } from "react";
-import api from "../../api";
+import React from "react";
+import User from "../user/user";
 import style from "./style.module.css";
-
-const Users = () => {
-  const [users, setUsers] = useState(api.users.fetchAll());
-
-  const handleDelete = (id) => {
-    setUsers(users.filter((user) => user._id !== id));
-  };
-
-  const renderPhrase = (number) => {
-    const lastOne = Number(number.toString().slice(-1));
-    if (number > 4 && number < 15) return "человек тусанет";
-    if ([2, 3, 4].indexOf(lastOne) >= 0) return "человека тусанет";
-    if (lastOne === 1) return "человек тусанет";
-    return "человек тусанет";
-  };
-
+const Users = ({ users, ...rest }) => {
+  console.log(users);
   return (
     <div className={style.wrapper}>
-      <span
-        className={`${style.message} ${
-          users.length > 0 ? "bg-primary" : "bg-danger"
-        }`}
-      >
-        {users.length > 0
-          ? `${users.length} ${renderPhrase(users.length)} с тобой сегодня`
-          : "Сегодня посидим дома.."}
-      </span>
+      {console.log(users)}
       {users.length > 0 && (
         <table className="table table-hover">
           <thead>
@@ -42,30 +20,16 @@ const Users = () => {
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user._id}>
-                <th scope="row">{user.name}</th>
-                <th scope="row">
-                  {user.qualities.map((qualitie) => (
-                    <span
-                      className={`badge m-2 badge bg-${qualitie.color}`}
-                      key={qualitie._id}
-                    >
-                      {qualitie.name}
-                    </span>
-                  ))}
-                </th>
-                <th scope="row">{user.profession.name}</th>
-                <th scope="row">{user.completedMeetings}</th>
-                <th scope="row">{user.rate}</th>
-                <th>
-                  <button
-                    className="btn btn-danger btn-sm m-1"
-                    onClick={() => handleDelete(user._id)}
-                  >
-                    delete
-                  </button>
-                </th>
-              </tr>
+              <User
+                deleteUser={() => rest.onDelete(user._id)}
+                key={user._id}
+                id={user._id}
+                name={user.name}
+                qualities={user.qualities}
+                profession={user.profession}
+                completedMeetings={user.completedMeetings}
+                rate={user.rate}
+              />
             ))}
           </tbody>
         </table>
@@ -73,4 +37,5 @@ const Users = () => {
     </div>
   );
 };
+
 export default Users;
