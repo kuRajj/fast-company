@@ -20,6 +20,9 @@ const User = (props) => {
         <th scope="row">{props.profession.name}</th>
         <th scope="row">{props.completedMeetings}</th>
         <th scope="row">{props.rate}</th>
+        <th scope="row">
+          <Bookmark status={false} />
+        </th>
         <th>
           <button
             className="btn btn-danger btn-sm m-1"

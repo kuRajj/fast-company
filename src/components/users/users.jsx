@@ -2,10 +2,8 @@ import React from "react";
 import User from "../user/user";
 import style from "./style.module.css";
 const Users = ({ users, ...rest }) => {
-  console.log(users);
   return (
     <div className={style.wrapper}>
-      {console.log(users)}
       {users.length > 0 && (
         <table className="table table-hover">
           <thead>
@@ -15,6 +13,7 @@ const Users = ({ users, ...rest }) => {
               <th scope="col">Профессия</th>
               <th scope="col">Встретился, раз</th>
               <th scope="col">Оценка</th>
+              <th scope="col">Изранное</th>
               <th scope="col"></th>
             </tr>
           </thead>
