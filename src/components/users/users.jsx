@@ -20,6 +20,9 @@ const Users = ({ users, ...rest }) => {
           <tbody>
             {users.map((user) => (
               <User
+                handleChangeBookmarkStatus={() =>
+                  rest.handleChangeBookmarkStatus(user._id)
+                }
                 deleteUser={() => rest.onDelete(user._id)}
                 key={user._id}
                 id={user._id}
@@ -28,6 +31,7 @@ const Users = ({ users, ...rest }) => {
                 profession={user.profession}
                 completedMeetings={user.completedMeetings}
                 rate={user.rate}
+                bookmark={user.bookmark}
               />
             ))}
           </tbody>

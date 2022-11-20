@@ -3,7 +3,6 @@ import Qalitie from "../qualitie/qualitie";
 import Bookmark from "../bookmark/bookmark";
 
 const User = (props) => {
-  // console.log(props);
   return (
     <>
       <tr key={props._id}>
@@ -21,7 +20,12 @@ const User = (props) => {
         <th scope="row">{props.completedMeetings}</th>
         <th scope="row">{props.rate}</th>
         <th scope="row">
-          <Bookmark status={false} />
+          <Bookmark
+            status={props.bookmark}
+            handleChangeBookmarkStatus={() =>
+              props.handleChangeBookmarkStatus(props._id)
+            }
+          />
         </th>
         <th>
           <button
