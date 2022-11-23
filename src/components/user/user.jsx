@@ -48,7 +48,7 @@ User.propTypes = {
     profession: PropTypes.object.isRequired,
     completedMeetings: PropTypes.number.isRequired,
     rate: PropTypes.number.isRequired,
-    bookmark: PropTypes.bool.isRequired.isRequired,
+    bookmark: PropTypes.bool.isRequired,
     handleChangeBookmarkStatus: PropTypes.func.isRequired,
     deleteUser: PropTypes.func.isRequired
 };
