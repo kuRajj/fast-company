@@ -10,19 +10,36 @@ const GroupList = ({
 }) => {
     return (
         <ul className="list-group">
-            {Object.keys(items).map((item) => (
-                <li
-                    key={items[item][valueProperty]}
-                    className={
-                        "list-group-item" +
-                        (items[item] === selectedItem ? " active" : "")
-                    }
-                    onClick={() => onItemSelect(items[item])}
-                    role="button"
-                >
-                    {items[item][contentPrpoerty]}
-                </li>
-            ))}
+            {Array.isArray(items)
+                ? items.map((item) => (
+                      <li
+                          key={item._id}
+                          className={
+                              "list-group-item" +
+                              (JSON.stringify(item) ===
+                              JSON.stringify(selectedItem)
+                                  ? " active"
+                                  : "")
+                          }
+                          onClick={() => onItemSelect(item)}
+                          role="button"
+                      >
+                          {item.name}
+                      </li>
+                  ))
+                : Object.keys(items).map((item) => (
+                      <li
+                          key={items[item][valueProperty]}
+                          className={
+                              "list-group-item" +
+                              (items[item] === selectedItem ? " active" : "")
+                          }
+                          onClick={() => onItemSelect(items[item])}
+                          role="button"
+                      >
+                          {items[item][contentPrpoerty]}
+                      </li>
+                  ))}
         </ul>
     );
 };
@@ -33,7 +50,7 @@ GroupList.defaultProps = {
 };
 
 GroupList.propTypes = {
-    items: PropTypes.object.isRequired,
+    items: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     valueProperty: PropTypes.string.isRequired,
     contentPrpoerty: PropTypes.string.isRequired,
     onItemSelect: PropTypes.func,
