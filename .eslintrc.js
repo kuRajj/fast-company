@@ -3,7 +3,12 @@ module.exports = {
         browser: true,
         es2021: true
     },
-    extends: ["plugin:react/recommended", "standard", "prettier"],
+    extends: [
+        "plugin:react/recommended",
+        "standard",
+        "prettier",
+        "plugin:prettier/recommended"
+    ],
     parserOptions: {
         ecmaFeatures: {
             jsx: true
@@ -13,7 +18,7 @@ module.exports = {
     },
     plugins: ["react"],
     rules: {
-        // indent: ["error", 4],
+        indent: ["error", 4],
         semi: [2, "always"],
         "space-before-function-paren": [
             "error",
