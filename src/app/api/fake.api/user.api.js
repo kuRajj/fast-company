@@ -143,7 +143,7 @@ const users = [
     }
 ];
 
-export const fetchAll = () =>
+const fetchAll = () =>
     new Promise((resolve) => {
         window.setTimeout(function () {
             resolve(users);
