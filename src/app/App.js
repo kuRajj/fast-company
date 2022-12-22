@@ -1,8 +1,26 @@
 import React from "react";
-import Users from "./components/users";
+import NavBar from "./components/NavBar";
+import { Route, Switch } from "react-router-dom";
+import Login from "./components/login";
+import Main from "./components/main";
+import AllUsers from "./components/allUsers";
+import User from "./components/user";
 
 function App() {
-    return <Users />;
+    return (
+        <>
+            <NavBar />
+            <Switch>
+                <Route path="/login" component={Login} />
+                <Route
+                    path="/allUsers/:userId"
+                    render={(props) => <User {...props} />}
+                />
+                <Route path="/allUsers" component={AllUsers} />
+                <Route exact path="/" component={Main} />
+            </Switch>
+        </>
+    );
 }
 
 export default App;

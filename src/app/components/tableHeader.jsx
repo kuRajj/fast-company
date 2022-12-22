@@ -36,7 +36,7 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                             ) : (
                                 <i className="bi bi-caret-up-fill"></i>
                             )
-                        ) : undefined}
+                        ) : null}
                     </th>
                 ))}
             </tr>
@@ -51,11 +51,3 @@ TableHeader.propTypes = {
 };
 
 export default TableHeader;
-
-// {columns[column].path === selectedSort.path ? (
-//     selectedSort.order === "desc" ? (
-//         <i className="bi bi-caret-down-fill"></i>
-//     ) : (
-//         <i className="bi bi-caret-up-fill"></i>
-//     )
-// ) : undefined}

@@ -1,56 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Quality from "./quality";
-import BookMark from "./bookmark";
-const User = ({
-    _id,
-    name,
-    qualities,
-    profession,
-    completedMeetings,
-    rate,
-    onDelete,
-    bookmark,
-    onToggleBookMark
-}) => {
-    return (
-        <tr>
-            <td>{name}</td>
-            <td>
-                {qualities.map((qual) => (
-                    <Quality {...qual} key={qual._id} />
-                ))}
-            </td>
-            <td>{profession.name}</td>
-            <td>{completedMeetings}</td>
-            <td>{rate} /5</td>
-            <td>
-                <BookMark
-                    status={bookmark}
-                    onClick={() => onToggleBookMark(_id)}
-                />
-            </td>
-            <td>
-                <button
-                    onClick={() => onDelete(_id)}
-                    className="btn btn-danger"
-                >
-                    delete
-                </button>
-            </td>
-        </tr>
-    );
+import api from "../api";
+import QualitiesList from "./qualitiesList";
+
+const User = ({ match }) => {
+    const [user, setUser] = useState();
+    const userId = match.params.userId;
+
+    useEffect(() => {
+        api.users.getById(userId).then((data) => setUser(data));
+    }, []);
+
+    if (user) {
+        return (
+            <>
+                <h2>{user.name}</h2>
+                <h3>Профессия: {user.profession.name}</h3>
+                <h3>
+                    <QualitiesList qualities={user.qualities} />
+                </h3>
+                <h3>Встретился раз: {user.completedMeetings}</h3>
+                <h3>Рейтинг: {user.rate}</h3>
+            </>
+        );
+    }
+    return "loading...";
 };
+
 User.propTypes = {
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    qualities: PropTypes.array,
-    profession: PropTypes.object.isRequired,
-    completedMeetings: PropTypes.number.isRequired,
-    rate: PropTypes.number.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    bookmark: PropTypes.bool,
-    onToggleBookMark: PropTypes.func.isRequired
+    match: PropTypes.object.isRequired,
+    user: PropTypes.object
 };
 
 export default User;
