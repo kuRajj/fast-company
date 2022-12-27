@@ -8,7 +8,6 @@ const User = () => {
     const [user, setUser] = useState();
     const { userId } = useParams();
     const history = useHistory();
-    console.log(history);
 
     const handlerBackToAllUsers = () => {
         user ? history.push("/allUsers") : history.replace("/allUsers");
