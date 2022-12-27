@@ -12,10 +12,7 @@ function App() {
             <NavBar />
             <Switch>
                 <Route path="/login" component={Login} />
-                <Route
-                    path="/allUsers/:userId"
-                    render={(props) => <User {...props} />}
-                />
+                <Route path="/allUsers/:userId" component={User} />
                 <Route path="/allUsers" component={AllUsers} />
                 <Route exact path="/" component={Main} />
             </Switch>

@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import api from "../api";
 import QualitiesList from "./qualitiesList";
+import { useHistory, useParams } from "react-router-dom";
 
-const User = ({ match, history }) => {
-    console.log(history);
+const User = () => {
     const [user, setUser] = useState();
-    const userId = match.params.userId;
+    const { userId } = useParams();
+    const history = useHistory();
+    console.log(history);
+
     const handlerBackToAllUsers = () => {
-        history.push("/allUsers");
+        user ? history.push("/allUsers") : history.replace("/allUsers");
     };
 
     useEffect(() => {
