@@ -7,15 +7,17 @@ import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
 import UserTable from "./usersTable";
 import _ from "lodash";
+import TextField from "./textField";
 
-const Users = () => {
+const UsersList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfession] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
-    const pageSize = 4;
-
     const [users, setUsers] = useState();
+    const [searchString, setSearchString] = useState("");
+
+    const pageSize = 8;
 
     useEffect(() => {
         api.users.fetchAll().then((data) => setUsers(data));
@@ -24,17 +26,16 @@ const Users = () => {
     const handleDelete = (userId) => {
         setUsers(users.filter((user) => user._id !== userId));
     };
-
     const handleToggleBookMark = (id) => {
-        setUsers(
-            users.map((user) => {
-                if (user._id === id) {
-                    return { ...user, bookmark: !user.bookmark };
-                }
-                return user;
-            })
-        );
+        const newArray = users.map((user) => {
+            if (user._id === id) {
+                return { ...user, bookmark: !user.bookmark };
+            }
+            return user;
+        });
+        setUsers(newArray);
     };
+
     useEffect(() => {
         api.professions.fetchAll().then((data) => setProfession(data));
     }, []);
@@ -50,13 +51,25 @@ const Users = () => {
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
-
     const handleSort = (item) => {
         setSortBy(item);
     };
 
+    const filterForSearchUsers = (text, data) => {
+        const filtredUsers = data.filter((user) =>
+            user.name.toLowerCase().includes(text.toLowerCase())
+        );
+        return filtredUsers;
+    };
+
+    const handleSearch = ({ target }) => {
+        setSearchString(target.value);
+    };
+
     if (users) {
-        const filteredUsers = selectedProf
+        const filteredUsers = searchString
+            ? filterForSearchUsers(searchString, users)
+            : selectedProf
             ? users.filter(
                   (user) =>
                       JSON.stringify(user.profession) ===
@@ -65,12 +78,15 @@ const Users = () => {
             : users;
 
         const count = filteredUsers.length;
+
         const sortedUsers = _.orderBy(
             filteredUsers,
             [sortBy.path],
             [sortBy.order]
         );
+
         const usersCrop = paginate(sortedUsers, currentPage, pageSize);
+
         const clearFilter = () => {
             setSelectedProf();
         };
@@ -89,12 +105,19 @@ const Users = () => {
                             onClick={clearFilter}
                         >
                             {" "}
-                            Очистить
+                            Очиститть
                         </button>
                     </div>
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <TextField
+                        placeholder="Search..."
+                        type="text"
+                        className="form-control"
+                        value={searchString}
+                        onChange={handleSearch}
+                    />
                     {count > 0 && (
                         <UserTable
                             users={usersCrop}
@@ -118,8 +141,8 @@ const Users = () => {
     }
     return "loading...";
 };
-Users.propTypes = {
+UsersList.propTypes = {
     users: PropTypes.array
 };
 
-export default Users;
+export default UsersList;
