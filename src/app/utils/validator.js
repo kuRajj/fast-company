@@ -11,20 +11,11 @@ export function validator(data, config) {
                 }
                 break;
             }
-            case "isRequiredQualities": {
-                if (typeof data === "boolean") {
-                    statusValidate = !data;
-                } else {
-                    statusValidate = data.length === 0;
-                }
-                break;
-            }
             case "isEmail": {
                 const emailRegExp = /^\S+@\S+\.\S+$/g;
                 statusValidate = !emailRegExp.test(data);
                 break;
             }
-
             case "isCapitalSymbol": {
                 const capitalRegExp = /[A-Z]+/g;
                 statusValidate = !capitalRegExp.test(data);
@@ -37,14 +28,6 @@ export function validator(data, config) {
             }
             case "min": {
                 statusValidate = data.length < config.value;
-                break;
-            }
-            case "isRequiredName": {
-                if (typeof data === "boolean") {
-                    statusValidate = !data;
-                } else {
-                    statusValidate = data.trim() === "";
-                }
                 break;
             }
             default:

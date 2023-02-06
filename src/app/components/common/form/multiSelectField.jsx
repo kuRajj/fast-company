@@ -32,7 +32,7 @@ MultiSelectField.propTypes = {
     onChange: PropTypes.func,
     name: PropTypes.string,
     label: PropTypes.string,
-    defaultValue: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+    defaultValue: PropTypes.array
 };
 
 export default MultiSelectField;
