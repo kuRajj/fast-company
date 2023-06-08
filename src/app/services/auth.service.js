@@ -33,5 +33,4 @@ const authService = {
         return data;
     }
 };
-
 export default authService;

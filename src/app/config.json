@@ -1,6 +1,7 @@
 {
-  "apiEndpoint": "https://fast-company-firebase-9f3ad-default-rtdb.europe-west1.firebasedatabase.app/",
-  "isFireBase": true
-}
-
-
+    "apiEndpoint": "https://fast-company-firebase-9f3ad-default-rtdb.europe-west1.firebasedatabase.app/",
+    "isFireBase": true
+  }
+  
+  
+  

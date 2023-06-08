@@ -1,8 +1,9 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import configFile from "../config.json";
-import localStorageService from "./localStorage.service";
 import authService from "./auth.service";
+
+import localStorageService from "./localStorage.service";
 
 const http = axios.create({
     baseURL: configFile.apiEndpoint
@@ -22,7 +23,7 @@ http.interceptors.request.use(
                 localStorageService.setTokens({
                     refreshToken: data.refresh_token,
                     idToken: data.id_token,
-                    expiresIn: data.expires_id,
+                    expiresIn: data.expires_in,
                     localId: data.user_id
                 });
             }
@@ -37,7 +38,7 @@ http.interceptors.request.use(
         return Promise.reject(error);
     }
 );
-function transformData(data) {
+function transormData(data) {
     return data && !data._id
         ? Object.keys(data).map((key) => ({
               ...data[key]
@@ -47,7 +48,7 @@ function transformData(data) {
 http.interceptors.response.use(
     (res) => {
         if (configFile.isFireBase) {
-            res.data = { content: transformData(res.data) };
+            res.data = { content: transormData(res.data) };
         }
         return res;
     },
@@ -59,7 +60,7 @@ http.interceptors.response.use(
 
         if (!expectedErrors) {
             console.log(error);
-            toast.error("Something was wrong. Try it later");
+            toast.error("Somthing was wrong. Try it later");
         }
         return Promise.reject(error);
     }
